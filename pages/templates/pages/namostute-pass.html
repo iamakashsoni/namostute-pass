@@ -80,10 +80,10 @@
             display: none !important;
         }
         .namostute-pass-container {
-            height: 100%;
-        }
-        .namostute-banner {
-            background: radial-gradient(circle, rgba(242, 101, 99, 1) 0%, rgba(3, 11, 70, 1) 100%);
+            background: linear-gradient(-45deg, #e73c7e, #ee7752, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            height: 100vh;
         }
         .namostute-banner-text {
             padding: 10px;
@@ -106,6 +106,17 @@
         .datetime,
         .location {
             font-size: 1rem;
+        }
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
         }
     }
     
@@ -436,6 +447,10 @@
         <p>Naadvenu presents</p>
         <h1>Namostute 2024</h1>
         <div class="datetime-location">
+            <div class="datetime">
+                <i class="fa-solid fa-clock"></i>
+                <span>6 PM Onwards</span>
+            </div>
             <div class="datetime">
                 <i class="fa-solid fa-calendar-days"></i>
                 <span>June 8, 2024</span>
