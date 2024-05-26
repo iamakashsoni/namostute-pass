@@ -1,0 +1,179 @@
+{% extends "base.html" %} {% load static %} {% block title %}Namostute 2024 - Naadvenu{% endblock title %} {% block page_content %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js" integrity="sha512-r6rDA7W6ZeQhvl8S7yRVQUKVHdexq+GAlNkNNqVC7YyIV+NwqCTJe2hDWCiffTyRNOeGEzRRJ9ifvRm/HCzGYg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<style>
+    .qr-container {
+        background-color: #f8f8ff;
+        padding: 2rem;
+        border-radius: 1rem;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        width: 100%;
+        margin: auto;
+    }
+    
+    h1 {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+    
+    .qr-reader {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .buttons {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .btn {
+        background-color: #010316;
+        color: #f8f8ff;
+        border: 1px solid #010316;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    
+    .btn:hover {
+        border: 1px solid #010316;
+    }
+    
+    .form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .input {
+        padding: 0.5rem 1rem;
+        border: 1px solid #ccc;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+    }
+    
+    .textarea {
+        resize: vertical;
+    }
+    
+    .submit {
+        background-color: #010316;
+        color: #f8f8ff;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    
+    .submit:hover {
+        border: 1px solid #010316;
+    }
+    
+    #reader video {
+        width: auto;
+        height: auto;
+        display: block;
+        position: relative;
+        border-radius: 10px;
+        border: 5px solid #000;
+        padding: 10px;
+    }
+</style>
+<div class="qr-container">
+    <h1>QR Code Scanner</h1>
+    <div class="qr-reader">
+        <div class="buttons"> <button id="start-camera-scan-btn" class="btn">Scan from Camera</button> <button id="upload-image-btn" class="btn">Upload from Gallery</button> <button id="stop-scan-btn" class="btn" style="display: none;">Stop Scanning</button> </div>
+        <div id="reader" style="width: 300px; height: auto; margin-bottom: 30px; display: none;"></div>
+    </div>
+    <form method="POST" id="qr-form" class="form">
+        {% csrf_token %}
+        <input type="text" id="id_name" name="name" placeholder="Name" class="input" />
+        <input type="email" id="id_email" name="email" placeholder="Email" class="input" />
+        <input type="tel" id="id_phone_number" name="phone_number" placeholder="Phone Number" class="input" />
+        <textarea id="id_address" name="address" placeholder="Address" class="input textarea"></textarea>
+        <button type="submit" class="btn submit">Submit</button>
+    </form>
+</div>
+<script>
+    let html5QrCode;
+
+    function startScanning() {
+        html5QrCode = new Html5Qrcode("reader");
+        html5QrCode.start({
+                facingMode: "environment"
+            }, {
+                fps: 10,
+                qrbox: 250
+            },
+            (decodedText) => {
+                try {
+                    const data = JSON.parse(decodeURIComponent(decodedText));
+                    document.getElementById('id_name').value = data.name;
+                    document.getElementById('id_email').value = data.email;
+                    document.getElementById('id_phone_number').value = data.phone;
+                    document.getElementById('id_address').value = data.location;
+                    stopScanning();
+                } catch (e) {
+                    console.error('Error parsing JSON from QR code:', e);
+                }
+            },
+            (errorMessage) => {
+                console.error('QR code scanning error:', errorMessage);
+            }
+        ).catch((err) => {
+            console.error('Error starting QR code scanner:', err);
+        });
+        document.getElementById('reader').style.display = 'block';
+        document.getElementById('stop-scan-btn').style.display = 'inline-block';
+    }
+
+    function stopScanning() {
+        if (html5QrCode) {
+            html5QrCode.stop().then(() => {
+                html5QrCode.clear();
+                document.getElementById('reader').style.display = 'none';
+                document.getElementById('stop-scan-btn').style.display = 'none';
+            }).catch((err) => {
+                console.error('Error stopping QR code scanner:', err);
+            });
+        }
+    }
+
+    document.getElementById('start-camera-scan-btn').addEventListener('click', startScanning);
+    document.getElementById('stop-scan-btn').addEventListener('click', stopScanning);
+
+    document.getElementById('upload-image-btn').addEventListener('click', function() {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'image/*';
+        input.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                html5QrCode = new Html5Qrcode("reader");
+                html5QrCode.scanFile(file, true)
+                    .then(decodedText => {
+                        try {
+                            const data = JSON.parse(decodeURIComponent(decodedText));
+                            document.getElementById('id_name').value = data.name;
+                            document.getElementById('id_email').value = data.email;
+                            document.getElementById('id_phone_number').value = data.phone;
+                            document.getElementById('id_address').value = data.location;
+                        } catch (e) {
+                            console.error('Error parsing JSON from QR code:', e);
+                        }
+                    })
+                    .catch(err => {
+                        console.error('Error scanning QR code from file:', err);
+                    });
+            }
+        });
+        input.click();
+    });
+</script>
+
+{% endblock page_content %}
