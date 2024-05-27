@@ -5,11 +5,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-69h)3_lw!to(+3#8jtyba4!mtlb=^74pbsn9eg_26auwe@%f_n'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['https://naadvenu.com']
 
-CSRF_TRUSTED_ORIGINS = ['https://naadvenu.azurewebsites.net']
+CSRF_TRUSTED_ORIGINS = ['https://naadvenu.com']
 
 
 # Application definition
