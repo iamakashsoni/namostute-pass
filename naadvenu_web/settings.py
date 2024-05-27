@@ -9,7 +9,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-CSRF_TRUSTED_ORIGINS = ['naadvenu.com']
+CSRF_TRUSTED_ORIGINS = ['https://naadvenu.com']
 
 
 # Application definition
