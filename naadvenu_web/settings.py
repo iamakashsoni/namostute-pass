@@ -9,8 +9,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['*']
+CSRF_TRUSTED_ORIGINS = ['https://naadvenu.azurewebsites.net']
 
 
 # Application definition
