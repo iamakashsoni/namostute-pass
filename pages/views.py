@@ -32,6 +32,10 @@ def qr_form_view(request):
                 address=address,
                 created_at=timezone.now()
             )
+            messages.success(request, 'Form submitted successfully!')
+            return redirect('qr_form_view')
+        else:
+            messages.error(request, 'Form submission failed. Please correct the errors and try again.')
     else:
         form = QRForm()
     return render(request, 'pages/qr-form.html', {'form': form})
@@ -54,4 +58,4 @@ def qr_form_view(request):
             return redirect('contactUs')
     except Exception as e:
                 messages.error(request, f'Error occurred: {e}')
-                return redirect('contactUs')
+                return redirect('qr_form_view')

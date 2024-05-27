@@ -4,11 +4,11 @@
     .qr-container {
         background-color: #f8f8ff;
         padding: 2rem;
-        border-radius: 1rem;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
         max-width: 600px;
         width: 100%;
         margin: auto;
+        height: 100vh;
     }
     
     h1 {
@@ -86,10 +86,12 @@
 </style>
 <div class="qr-container">
     <h1>QR Code Scanner</h1>
+
     <div class="qr-reader">
         <div class="buttons"> <button id="start-camera-scan-btn" class="btn">Scan from Camera</button> <button id="upload-image-btn" class="btn">Upload from Gallery</button> <button id="stop-scan-btn" class="btn" style="display: none;">Stop Scanning</button> </div>
         <div id="reader" style="width: 300px; height: auto; margin-bottom: 30px; display: none;"></div>
     </div>
+
     <form method="POST" id="qr-form" class="form">
         {% csrf_token %}
         <input type="text" id="id_name" name="name" placeholder="Name" class="input" />
@@ -98,7 +100,22 @@
         <textarea id="id_address" name="address" placeholder="Address" class="input textarea"></textarea>
         <button type="submit" class="btn submit">Submit</button>
     </form>
+    <div id="message-container">
+        {% if messages %}
+        <div class="messages mt-3">
+            {% for message in messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
 </div>
+
 <script>
     let html5QrCode;
 
@@ -173,6 +190,15 @@
             }
         });
         input.click();
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        const messagesContainer = document.getElementById('message-container');
+        if (messagesContainer) {
+            const messages = messagesContainer.querySelectorAll('.messages .success');
+            if (messages.length > 0) {
+                alert(messages[0].innerText);
+            }
+        }
     });
 </script>
 
