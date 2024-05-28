@@ -180,6 +180,7 @@
                             document.getElementById('id_email').value = data.email;
                             document.getElementById('id_phone_number').value = data.phone;
                             document.getElementById('id_address').value = data.location;
+                            document.getElementById('submit-btn').click();
                         } catch (e) {
                             console.error('Error parsing JSON from QR code:', e);
                         }
@@ -191,6 +192,7 @@
         });
         input.click();
     });
+
     document.addEventListener('DOMContentLoaded', function() {
         const messagesContainer = document.getElementById('message-container');
         if (messagesContainer) {
