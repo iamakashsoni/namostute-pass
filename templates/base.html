@@ -18,12 +18,7 @@
 
 <body>
     <div id="main">
-        <div class="container">
-            <audio id="background-music" autoplay loop>
-                <source src="{% static 'audio/audio.mp3' %}" type="audio/mpeg">
-                Your browser does not support the audio element.
-            </audio>
-        </div>
+        
         <div class="main-content">
             <div class="">{% block page_content %}{% endblock page_content %}</div>
         </div>
