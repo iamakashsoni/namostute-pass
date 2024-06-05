@@ -1,0 +1,73 @@
+{% extends "base.html" %} {% load static %} {% block title %}Namostute 2024 - Naadvenu{% endblock title %} {% block page_content %}
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,600,700,800,900&display=swap');
+    html,
+    body {
+        font-family: 'Raleway', sans-serif;
+    }
+    
+    .thankyou-page ._header {
+        background: #0a4c30;
+        text-align: center;
+        padding: 50px 30px;
+        background: #0a4c30 url(https://codexcourier.com/images/main_page.jpg) center/cover no-repeat;
+    }
+    
+    .thankyou-page ._header .logo {
+        max-width: 200px;
+        margin: 0 auto 50px;
+    }
+    
+    .thankyou-page ._header .logo img {
+        width: 100%;
+    }
+    
+    .thankyou-page ._body {
+        margin: -70px 0 30px;
+    }
+    
+    .thankyou-page ._body ._box {
+        margin: auto;
+        max-width: 80%;
+        padding: 50px;
+        background: white;
+        border-radius: 3px;
+        box-shadow: 0 0 35px rgba(10, 10, 10, 0.12);
+        -moz-box-shadow: 0 0 35px rgba(10, 10, 10, 0.12);
+        -webkit-box-shadow: 0 0 35px rgba(10, 10, 10, 0.12);
+    }
+    
+    .thankyou-page ._body ._box h2 {
+        font-size: 32px;
+        font-weight: 600;
+        color: #4ab74a;
+    }
+    
+    .thankyou-page ._body ._box p {
+        font-size: 18px;
+        font-weight: 600;
+        color: #010316;
+        text-align: center;
+    }
+</style>
+<div class="thankyou-page">
+    <div class="_header">
+        <div class="logo">
+            <img src="{% static 'images/namostute.png' %}" alt="Naadvenu">
+        </div>
+    </div>
+    <div class="_body">
+        <div class="_box">
+            <h2>
+                <strong>We Are Housefull!</strong> See you all on June 8th at 6:00 PM.
+            </h2>
+            <p>
+                Thank you so much for registering for Namostute. We truly appreciate you taking the time to fill out the form. It means a lot to us, just like you do! Thanks for being you.
+            </p>
+            <p> For any issues or further assistance, please contact us at 8291806360.
+            </p>
+        </div>
+    </div>
+</div>
+
+{% endblock page_content %}
