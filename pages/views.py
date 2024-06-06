@@ -6,8 +6,8 @@ from django.utils import timezone
 import json
 
 def home(request):
-    return render(request, "pages/namostute-pass.html", {})
-    # return render(request, "pages/thankyou-page.html", {})
+    #return render(request, "pages/namostute-pass.html", {})
+    return render(request, "pages/thankyou-page.html", {})
 
 def qr_form_view(request):
     if request.method == 'POST':
