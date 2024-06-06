@@ -13044,7 +13044,7 @@ table.dataTable.no-footer {
     /* z-index: 1; */
     width: 100%;
     color: #f8f8ff;
-    min-height: 100vh;
+/*     min-height: 100vh; */
 }
 
 .banner img {
