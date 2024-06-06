@@ -13658,7 +13658,9 @@
      .header .navigation .navbar ul .dropdown-menu a p {
          color: #515184;
          margin-bottom: 0;
-     }
+     } .main-content {
+     height: auto;
+ }
  }
  
  .music-btn .btn {
@@ -13970,7 +13972,7 @@
      background: #010316;
      z-index: 1;
      width: 100%;
-/*      height: 100vh; */
+     height: 100vh;
      color: #f8f8ff;
  }
  
