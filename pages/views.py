@@ -12,6 +12,11 @@ def home(request):
     #return render(request, "pages/namostute-pass.html", {})
     return render(request, "pages/thankyou-page.html", {})
 
+def passes(request):
+    return render(request, "pages/namostute-pass.html", {})
+    #return render(request, "pages/thankyou-page.html", {})
+    
+
 def qr_form_view(request):
     if request.method == 'POST':
         form = QRForm(request.POST)
