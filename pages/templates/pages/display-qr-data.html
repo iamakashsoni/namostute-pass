@@ -1,0 +1,23 @@
+{% extends "base.html" %} {% load static %} {% block title %}Namostute 2024 - Naadvenu{% endblock title %} {% block page_content %}
+
+<!-- pages/show_data.html -->
+<h1>QR Form Data</h1>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone Number</th>
+        <th>Address</th>
+    </tr>
+    {% for item in data %}
+    <tr>
+        <td>{{ item.name }}</td>
+        <td>{{ item.email }}</td>
+        <td>{{ item.phone_number }}</td>
+        <td>{{ item.address }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<a href="{% url 'download_data' %}">Download Data</a> {% endblock page_content %}
